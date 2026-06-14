@@ -433,6 +433,32 @@ export async function POST(request) {
           break;
         }
 
+        case "codebuddy-direct": {
+          // codebuddy.ai/v2 requires stream:true + a system message; Test sends
+          // a minimal valid request so 401/403 still flag bad keys but quirks
+          // don't return false-negatives.
+          const cfg = PROVIDERS["codebuddy-direct"];
+          const res = await fetch(cfg.baseUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "text/event-stream",
+              "Authorization": `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+              model: "claude-opus-4.7-1m",
+              messages: [
+                { role: "system", content: "ping" },
+                { role: "user", content: "ping" },
+              ],
+              max_tokens: 1,
+              stream: true,
+            }),
+          });
+          isValid = res.status !== 401 && res.status !== 403;
+          break;
+        }
+
         case "deepgram": {
           const res = await fetch("https://api.deepgram.com/v1/projects", {
             headers: { "Authorization": `Token ${apiKey}` },

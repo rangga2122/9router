@@ -459,6 +459,10 @@ export const PROVIDER_MODELS = {
     { id: "Qwen/Qwen3.6-Plus", name: "Qwen 3.6 Plus" },
     { id: "stepfun/Step-3.5-Flash", name: "Step 3.5 Flash" },
   ],
+  "codebuddy-direct": [
+    { id: "claude-opus-4.7-1m", name: "Claude Opus 4.7 (1M)" },
+    { id: "claude-sonnet-4.7", name: "Claude Sonnet 4.7" },
+  ],
   groq: [
     { id: "llama-3.3-70b-versatile", name: "Llama 3.3 70B" },
     { id: "meta-llama/llama-4-maverick-17b-128e-instruct", name: "Llama 4 Maverick" },
